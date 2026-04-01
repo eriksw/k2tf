@@ -7,6 +7,7 @@ import (
 	"github.com/sl1pm4t/k2tf/pkg/file_io"
 	"github.com/sl1pm4t/k2tf/pkg/tfkschema"
 	flag "github.com/spf13/pflag"
+	apiextensionsv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	"os"
 
 	"github.com/rs/zerolog/log"
@@ -66,7 +67,15 @@ func main() {
 	defer closer()
 
 	for i, obj := range objs {
-		if tfkschema.IsKubernetesKindSupported(obj) {
+		if _, isCRD := obj.(*apiextensionsv1.CustomResourceDefinition); isCRD {
+			hcl, err := WriteCRD(obj)
+			if err != nil {
+				log.Error().Int("obj#", i).Err(err).Msg("error writing CRD object")
+				continue
+			}
+			fmt.Fprint(w, hcl)
+			fmt.Fprintln(w)
+		} else if tfkschema.IsKubernetesKindSupported(obj) {
 			f := hclwrite.NewEmptyFile()
 			_, err := WriteObject(obj, f.Body())
 			if err != nil {

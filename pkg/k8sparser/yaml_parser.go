@@ -11,7 +11,14 @@ import (
 	"k8s.io/apimachinery/pkg/util/yaml"
 	"k8s.io/client-go/kubernetes/scheme"
 	aggregator_scheme "k8s.io/kube-aggregator/pkg/apiserver/scheme"
+
+	apiextensionsv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 )
+
+func init() {
+	// Register CustomResourceDefinition types so the decoder can handle them.
+	_ = apiextensionsv1.AddToScheme(scheme.Scheme)
+}
 
 func ParseYAML(in io.Reader) ([]runtime.Object, error) {
 	var result error

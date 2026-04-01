@@ -56,6 +56,39 @@ $ k2tf -f test-fixtures/
 $ kubectl get deployments -o yaml | ./k2tf -o deployments.tf
 ```
 
+## CustomResourceDefinition (CRD) Support
+
+Kubernetes `CustomResourceDefinition` resources are converted to
+[`kubernetes_manifest`](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest)
+Terraform resources. This approach preserves the full CRD manifest as a dynamic
+object, which is necessary because CRD schemas are arbitrary and don't map to
+static Terraform provider resource types.
+
+```
+$ k2tf -f crds.yaml
+```
+
+Example output:
+
+```hcl
+resource "kubernetes_manifest" "custom_resource_definition-crontabs_stable_example_com" {
+  manifest = {
+    "apiVersion" = "apiextensions.k8s.io/v1"
+    "kind" = "CustomResourceDefinition"
+    "metadata" = {
+      "name" = "crontabs.stable.example.com"
+    }
+    "spec" = {
+      ...
+    }
+  }
+}
+```
+
+All other supported Kubernetes resource types continue to be converted to their
+specific Terraform provider resources (e.g. `kubernetes_deployment_v1`,
+`kubernetes_service_v1`, etc.).
+
 ## Building
 
 > **NOTE** Requires a working Golang build environment.
