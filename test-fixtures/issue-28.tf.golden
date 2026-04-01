@@ -1,4 +1,4 @@
-resource "kubernetes_daemonset" "nvidia_driver_installer" {
+resource "kubernetes_daemon_set_v1" "nvidia_driver_installer" {
   metadata {
     name      = "nvidia-driver-installer"
     namespace = "kube-system"

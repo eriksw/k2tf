@@ -1,4 +1,4 @@
-resource "kubernetes_job" "pi" {
+resource "kubernetes_job_v1" "pi" {
   metadata {
     name = "pi"
   }

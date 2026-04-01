@@ -1,4 +1,4 @@
-resource "kubernetes_pod" "node_exporter_7fth_7" {
+resource "kubernetes_pod_v1" "node_exporter_7fth_7" {
   metadata {
     name          = "node-exporter-7fth7"
     generate_name = "node-exporter-"

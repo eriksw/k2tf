@@ -470,7 +470,7 @@ func (w *ObjectWalker) Slice(v reflect.Value) error {
 
 			// primitive type
 			w.currentBlock.hasValue = true
-			w.currentBlock.hcl.Body().SetAttributeValue(
+			w.currentBlock.SetAttributeValue(
 				tfkschema.ToTerraformAttributeName(w.field(), w.currentBlock.FullSchemaName()),
 				val,
 			)

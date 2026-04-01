@@ -1,4 +1,4 @@
-resource "kubernetes_stateful_set" "web" {
+resource "kubernetes_stateful_set_v1" "web" {
   metadata {
     name = "web"
     labels = {

@@ -289,7 +289,7 @@ func TestToTerraformResourceType(t *testing.T) {
 					},
 				},
 			},
-			"kubernetes_pod",
+			"kubernetes_pod_v1",
 		},
 		{
 			"DaemonSet",
@@ -300,7 +300,7 @@ func TestToTerraformResourceType(t *testing.T) {
 					},
 				},
 			},
-			"kubernetes_daemonset",
+			"kubernetes_daemon_set_v1",
 		},
 		{
 			"Deployment",
@@ -311,7 +311,7 @@ func TestToTerraformResourceType(t *testing.T) {
 					},
 				},
 			},
-			"kubernetes_deployment",
+			"kubernetes_deployment_v1",
 		},
 		{
 			"Service",
@@ -322,7 +322,7 @@ func TestToTerraformResourceType(t *testing.T) {
 					},
 				},
 			},
-			"kubernetes_service",
+			"kubernetes_service_v1",
 		},
 	}
 	for _, tt := range tests {

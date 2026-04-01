@@ -1,4 +1,4 @@
-resource "kubernetes_replication_controller" "echoheaders" {
+resource "kubernetes_replication_controller_v1" "echoheaders" {
   metadata {
     name      = "echoheaders"
     namespace = "platform"

@@ -1,4 +1,4 @@
-resource "kubernetes_deployment" "baz_app" {
+resource "kubernetes_deployment_v1" "baz_app" {
   metadata {
     name      = "baz-app"
     namespace = "bat"

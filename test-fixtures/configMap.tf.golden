@@ -1,4 +1,4 @@
-resource "kubernetes_config_map" "foo_config_map" {
+resource "kubernetes_config_map_v1" "foo_config_map" {
   metadata {
     name      = "foo-config-map"
     namespace = "bar"

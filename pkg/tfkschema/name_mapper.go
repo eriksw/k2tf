@@ -71,7 +71,7 @@ func ToTerraformSubBlockName(field *reflect.StructField, path string) string {
 func NormalizeTerraformName(s string, toSingular bool, path string) string {
 	switch s {
 	case "DaemonSet":
-		return "daemonset"
+		return "daemon_set"
 
 	case "nonResourceURLs":
 		if strings.Contains(path, "role.rule") {
@@ -94,12 +94,12 @@ func NormalizeTerraformName(s string, toSingular bool, path string) string {
 		}
 
 	case "ports":
-		if strings.Contains(path, "kubernetes_network_policy.spec") {
+		if strings.Contains(path, "network_policy") && strings.Contains(path, "spec") {
 			return "ports"
 		}
 
 	case "externalIPs":
-		if strings.Contains(path, "kubernetes_service.spec") {
+		if strings.Contains(path, "service") && strings.Contains(path, "spec") {
 			return "external_ips"
 		}
 	}
@@ -157,6 +157,7 @@ func extractProtobufName(field *reflect.StructField) string {
 
 // ToTerraformResourceType converts a Kubernetes API Object Type name to the
 // equivalent `terraform-provider-kubernetes` schema name.
+// Prefers _v1 resource types when available, as non-v1 types are deprecated.
 func ToTerraformResourceType(obj runtime.Object) string {
 	tmeta := k8sutils.TypeMeta(obj)
 
@@ -178,7 +179,13 @@ func ToTerraformResourceType(obj runtime.Object) string {
 	default:
 		kind = NormalizeTerraformName(tmeta.Kind, false, "")
 	}
-	return "kubernetes_" + kind
+
+	base := "kubernetes_" + kind
+	v1 := base + "_v1"
+	if ResourceSchema(v1) != nil {
+		return v1
+	}
+	return base
 }
 
 // ToTerraformResourceName extract the Kubernetes API Objects' name from the

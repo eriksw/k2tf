@@ -1,4 +1,4 @@
-resource "kubernetes_certificate_signing_request" "myuser" {
+resource "kubernetes_certificate_signing_request_v1" "myuser" {
   metadata {
     name = "myuser"
   }

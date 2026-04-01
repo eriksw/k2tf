@@ -1,4 +1,4 @@
-resource "kubernetes_storage_class" "slow" {
+resource "kubernetes_storage_class_v1" "slow" {
   metadata {
     name = "slow"
   }

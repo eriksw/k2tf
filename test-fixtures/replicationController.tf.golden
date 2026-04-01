@@ -1,4 +1,4 @@
-resource "kubernetes_replication_controller" "es" {
+resource "kubernetes_replication_controller_v1" "es" {
   metadata {
     name = "es"
     labels = {

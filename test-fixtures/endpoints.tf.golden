@@ -1,4 +1,4 @@
-resource "kubernetes_endpoints" "backend" {
+resource "kubernetes_endpoints_v1" "backend" {
   metadata {
     name      = "backend"
     namespace = "default"

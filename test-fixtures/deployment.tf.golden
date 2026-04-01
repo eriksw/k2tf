@@ -1,4 +1,4 @@
-resource "kubernetes_deployment" "backend_api" {
+resource "kubernetes_deployment_v1" "backend_api" {
   metadata {
     name      = "backend-api"
     namespace = "default"

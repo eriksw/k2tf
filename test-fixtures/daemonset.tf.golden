@@ -1,4 +1,4 @@
-resource "kubernetes_daemonset" "terraform_example" {
+resource "kubernetes_daemon_set_v1" "terraform_example" {
   metadata {
     name      = "terraform-example"
     namespace = "something"

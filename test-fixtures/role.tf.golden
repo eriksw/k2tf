@@ -1,4 +1,4 @@
-resource "kubernetes_role" "elasticsearch" {
+resource "kubernetes_role_v1" "elasticsearch" {
   metadata {
     name = "elasticsearch"
   }
