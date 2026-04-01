@@ -56,6 +56,15 @@ $ k2tf -f test-fixtures/
 $ kubectl get deployments -o yaml | ./k2tf -o deployments.tf
 ```
 
+**Write each resource to its own file in a directory**
+
+```
+$ k2tf -f manifests.yaml -O output/
+```
+
+This creates one `.tf` file per resource in the output directory, named
+`<resource_type>-<resource_name>.tf` (e.g. `kubernetes_deployment-my_app.tf`).
+
 ## CustomResourceDefinition (CRD) Support
 
 Kubernetes `CustomResourceDefinition` resources are converted to
